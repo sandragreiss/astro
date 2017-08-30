@@ -64,51 +64,29 @@ def alexnet(images_train, labels_train, images_test, labels_test):
     model = Sequential()
     model.add(ZeroPadding1D((1), input_shape=(1, 3722)))
     model.add(Convolution1D(64, 3, activation='relu'))
-    model.add(MaxPooling1D((2)))#, strides=(2,2)))
-    #model.add(Activation('relu'))
+    model.add(MaxPooling1D((2)))
 
     model.add(ZeroPadding1D((1)))
     model.add(Convolution1D(128, 3, activation='relu'))
-    model.add(MaxPooling1D((2)))#, strides=(2,2)))
-    #model.add(Convolution2D(128, 3, 3))
-    #model.add(BatchNormalization((128,115,115)))
-    #model.add(Activation('relu'))
+    model.add(MaxPooling1D((2)))
 
     model.add(ZeroPadding1D((1)))
     model.add(Convolution1D(192, 3, activation='relu'))
-    model.add(MaxPooling1D((2)))#, strides=(2,2)))
-    #model.add(Convolution2D(192, 3, 3, border_mode='same'))
-    #model.add(BatchNormalization((128,112,112)))
-    #model.add(Activation('relu'))
+    model.add(MaxPooling1D((2)))
 
     model.add(ZeroPadding1D((1)))
     model.add(Convolution1D(256, 3, activation='relu'))
-    model.add(MaxPooling1D((2)))#, strides=(2,2)))
-    #model.add(Convolution2D(256, 3, 3, border_mode='same'))
-    #model.add(BatchNormalization((128,108,108)))
-    #model.add(Activation('relu'))
+    model.add(MaxPooling1D((2)))
 
     model.add(ZeroPadding1D((1)))
     model.add(Convolution1D(512, 3, activation='relu'))
     model.add(MaxPooling1D((2)))
-    #model.add(MaxPooling2D(poolsize=(3,3)))
-
-    #model.add(Flatten())
+    
     model.add(Dense(4096, activation='relu'))
     model.add(Dropout(0.5))
-    #model.add(Dense(4096, activation='relu'))
-    #model.add(Dropout(0.5))
-    #model.add(BatchNormalization(4096))
-    #model.add(Activation('relu'))
-    #model.add(Dense(4096, init='normal'))
-    #model.add(BatchNormalization(4096))
-    #model.add(Activation('relu'))
+    
     model.add(Dense(2, activation='softmax'))
-    #model.add(BatchNormalization(2))
-    #model.add(Activation('softmax'))
-
-    #adagrad = Adagrad(lr=0.01)
-    #adam = Adam()
+    
     sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
     model.compile(loss='categorical_crossentropy', optimizer=sgd)
 
@@ -177,7 +155,3 @@ print labels_train.shape, labels_test.shape
 score, model = alexnet(images_train, labels_train, images_test, labels_test)
 print score[1]
 
-#json_string = model.to_json()
-#open('my_model_v0_architecture.json', 'w').write(json_string)
-#model.save_weights('my_model_v0_weights.h5')
-#print 'test accuracy: ', score[1]
